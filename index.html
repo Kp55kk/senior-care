@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorCare ❤️ - Care for Every Moment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- App Navigation -->
+    <nav class="navbar" id="main-nav">
+        <div class="nav-content">
+            <div class="logo" onclick="navigateToHome()">SeniorCare ❤️</div>
+            <div class="nav-links" id="nav-links">
+                <!-- Links injected via JS -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+
+    <!-- ============================================== -->
+    <!-- PAGE 1: LANDING SITE                           -->
+    <!-- ============================================== -->
+    <div id="page-landing" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>Care for Every Moment</h1>
+                <p>Bringing compassionate food delivery, reliable medicine management, and instant emergency support directly to senior citizens. Because family matters.</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button class="btn btn-primary" onclick="showPage('page-login')">Get Started 🚀</button>
+                    <button class="btn btn-secondary" onclick="showPage('page-login')">Login 👤</button>
+                </div>
+            </div>
+
+            <h2 class="text-center" style="margin: 60px 0 40px;">Our Core Services</h2>
+            <div class="grid-2">
+                <div class="card text-center">
+                    <div class="feature-icon">🍱</div>
+                    <h3>Food Services</h3>
+                    <p>Nutrition-focused meals tailored to dietary requirements, delivered hot and fresh on time.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="feature-icon">💊</div>
+                    <h3>Medicine Management</h3>
+                    <p>Never miss a dose again. Simple scheduling, smart reminders, and easy tracking for peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 2: LOGIN PAGE                             -->
+    <!-- ============================================== -->
+    <div id="page-login" class="page">
+        <div class="container">
+            <div class="auth-box card">
+                <h2>Welcome Back 👋</h2>
+                <p>Please select your role and login to continue.</p>
+
+                <div class="tabs" id="role-tabs">
+                    <div class="tab active" onclick="selectRole('senior')">👵 Senior</div>
+                    <div class="tab" onclick="selectRole('caregiver')">👩‍⚕️ Caregiver</div>
+                    <div class="tab" onclick="selectRole('admin')">🛡️ Admin</div>
+                    <div class="tab" onclick="selectRole('provider')">🚚 Provider</div>
+                </div>
+
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <p id="hint-text" style="color: var(--primary); font-size: 14px; margin-bottom: 15px; background: #fff1eb; padding: 10px; border-radius: 8px;">Hint: admin@care.com / 1234</p>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;">Secure Login 🔒</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 3: SENIOR CITIZEN DASHBOARD               -->
+    <!-- ============================================== -->
+    <div id="page-senior-dashboard" class="page">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <h1 id="senior-welcome">Good Morning 👋</h1>
+                    <p>Here is your daily summary. We hope you are having a wonderful day!</p>
+                </div>
+            </div>
+
+            <div class="grid-2 mb-4">
+                <div class="action-card" onclick="showPage('page-food-request')">
+                    <div class="icon">🍱</div>
+                    <div class="title">Request Food</div>
+                </div>
+                <div class="action-card" onclick="showPage('page-medicine')">
+                    <div class="icon">💊</div>
+                    <div class="title">My Medicines</div>
+                </div>
+            </div>
+
+            <div class="grid-2 mt-4">
+                <div class="card">
+                    <h3>💊 Today's Medicines</h3>
+                    <div id="senior-medicine-list" style="margin-top: 15px;">
+                        <!-- populated via JS -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>🍱 Recent Food Requests</h3>
+                    <div id="senior-food-list" style="margin-top: 15px;">
+                        <!-- populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 4: FOOD REQUEST FORM                      -->
+    <!-- ============================================== -->
+    <div id="page-food-request" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <span onclick="showPage('page-senior-dashboard')">Dashboard</span> / Request Food
+            </div>
+            
+            <div style="max-width: 600px; margin: 0 auto;" class="card">
+                <h2>🍱 Request a Meal</h2>
+                <p>Please select your meal type and dietary preferences. We'll deliver it hot and fresh.</p>
+                
+                <form onsubmit="handleFoodRequest(event)" style="margin-top: 25px;">
+                    <div class="form-group">
+                        <label class="form-label">Meal Type</label>
+                        <select class="form-control form-select" id="food-type" required>
+                            <option value="">Select a meal...</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Dinner">Dinner</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dietary Preference</label>
+                        <select class="form-control form-select" id="food-diet" required>
+                            <option value="Regular">Regular</option>
+                            <option value="Diabetic">Diabetic (Low Sugar)</option>
+                            <option value="Low Salt">Low Salt (Cardiac)</option>
+                            <option value="Vegetarian">Strict Vegetarian</option>
+                            <option value="Soft Diet">Soft Diet (Easy to chew)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Delivery Time</label>
+                        <input type="time" id="food-time" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Special Instructions (Optional)</label>
+                        <textarea id="food-instructions" class="form-control" placeholder="Any allergies or specific prep instructions?"></textarea>
+                    </div>
+
+                    <div class="flex" style="gap: 15px; margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">Submit Request ✔️</button>
+                        <button type="button" class="btn btn-outline" style="flex: 1;" onclick="showPage('page-senior-dashboard')">Cancel ❌</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 5: MEDICINE MANAGEMENT ROUTE              -->
+    <!-- ============================================== -->
+    <div id="page-medicine" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <span onclick="showPage('page-senior-dashboard')">Dashboard</span> / My Medicines
+            </div>
+
+            <div class="dashboard-wrapper">
+                <!-- Left side: Form -->
+                <div class="card" style="flex: 1;">
+                    <h3>➕ Add New Medicine</h3>
+                    <form onsubmit="handleAddMedicine(event)" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Medicine Name</label>
+                            <input type="text" id="med-name" class="form-control" required placeholder="e.g. Paracetamol">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Dosage</label>
+                            <input type="text" id="med-dosage" class="form-control" required placeholder="e.g. 500mg or 1 Pill">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Frequency</label>
+                            <select id="med-freq" class="form-control form-select" required>
+                                <option value="Morning">Morning</option>
+                                <option value="Afternoon">Afternoon</option>
+                                <option value="Night">Night</option>
+                                <option value="Twice a Day">Twice a Day</option>
+                            </select>
+                        </div>
+                        <div class="flex" style="gap: 15px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" id="med-start" class="form-control" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label class="form-label">End Date</label>
+                                <input type="date" id="med-end" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block mt-4">Save Medicine 💾</button>
+                    </form>
+                </div>
+
+                <!-- Right side: List -->
+                <div class="card" style="flex: 2;">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3>📋 Current Prescriptions</h3>
+                        <span class="badge badge-danger" id="missed-med-badge" style="display:none;">Missed Doses!</span>
+                    </div>
+                    <div id="med-management-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================== -->
+    <!-- PAGE 7: CAREGIVER DASHBOARD                    -->
+    <!-- ============================================== -->
+    <div id="page-caregiver-dashboard" class="page">
+        <div class="container">
+            <h2>👩‍⚕️ Caregiver Dashboard</h2>
+            <p>Overview of assigned senior citizens and alerts.</p>
+
+            <div class="grid-2 mb-4 mt-4">
+                <div class="card stat-card">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Assigned Seniors</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-num" id="cg-pending-count" style="color: var(--warning);">0</div>
+                    <div class="stat-label">Pending Requests</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <h3>👵 Assigned Seniors</h3>
+                    <div class="table-responsive" style="margin-top: 15px; box-shadow: none; border: 1px solid var(--border);">
+                        <table class="table">
+                            <thead><tr><th>Name</th><th>Age</th><th>Status</th></tr></thead>
+                            <tbody id="cg-seniors-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 8: ADMIN PANEL                            -->
+    <!-- ============================================== -->
+    <div id="page-admin" class="page">
+        <div class="container">
+            <h2>🛡️ System Administrator</h2>
+            
+            <div class="grid-3 mb-4 mt-4">
+                <div class="card stat-card">
+                    <div class="stat-num" id="admin-users-txt">6</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Active Seniors</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-num">1</div>
+                    <div class="stat-label">Service Providers</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>📊 System Usage Analytics</h3>
+                <div class="bar-chart">
+                    <div class="bar-wrapper">
+                        <div class="bar-value">45</div>
+                        <div class="bar blue" style="height: 45%;"></div>
+                        <div class="bar-label">Food Req.</div>
+                    </div>
+                    <div class="bar-wrapper">
+                        <div class="bar-value">80</div>
+                        <div class="bar green" style="height: 80%;"></div>
+                        <div class="bar-label">Meds Taken</div>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div class="bar-value">120</div>
+                        <div class="bar" style="height: 90%;"></div>
+                        <div class="bar-label">Logins</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <h3>👥 User Management</h3>
+                <div class="table-responsive" style="margin-top: 15px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-table">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- PAGE 9: SERVICE PROVIDER DASHBOARD             -->
+    <!-- ============================================== -->
+    <div id="page-provider" class="page">
+        <div class="container">
+            <h2>🚚 Food Service Provider</h2>
+            <p>Manage incoming food requests and deliveries.</p>
+            
+            <div class="card mt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3>🍱 Pending Order Requests</h3>
+                    <span class="badge badge-pending">Action Required</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Type & Diet</th>
+                                <th>Delivery Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="provider-incoming-list">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Move scripts to external file -->
+    <script src="script.js"></script>
+</body>
+</html>
